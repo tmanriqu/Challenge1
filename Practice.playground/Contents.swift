@@ -32,10 +32,8 @@ struct Person: Format {
     func prettyFormat() -> String {
         //Capitalize first letter and add new format
         let splitFullname = fullname.lowercased().split(separator: " ")
-        return  String(splitFullname[0]).prefix(1).capitalized +
-                splitFullname[0].dropFirst() + " " +
-                String(splitFullname[2]).prefix(1).capitalized +
-                splitFullname[2].dropFirst() + " " +
+        return  String(splitFullname[0]).capitalized + " " +
+                String(splitFullname[2]).capitalized + " " +
                 String(splitFullname[3]).prefix(1).capitalized + "."
     }
 }
@@ -90,8 +88,6 @@ let person6 = Person(
     numberBrothers: 0,
     email: "fabi@hotmail.com"
 )
-
-
 
 var persons:[Person] = []
 persons.append(contentsOf: [person1, person2, person3, person4, person5, person6])
