@@ -32,13 +32,11 @@ struct Person: Format {
     func prettyFormat() -> String {
         //Capitalize first letter and add new format
         let splitFullname = fullname.lowercased().split(separator: " ")
-        let newFormat =
-            String(splitFullname[0]).prefix(1).capitalized +
-            splitFullname[0].dropFirst() + " " +
-            String(splitFullname[2]).prefix(1).capitalized +
-            splitFullname[2].dropFirst() + " " +
-            String(splitFullname[3]).prefix(1).capitalized + "."
-        return newFormat
+        return  String(splitFullname[0]).prefix(1).capitalized +
+                splitFullname[0].dropFirst() + " " +
+                String(splitFullname[2]).prefix(1).capitalized +
+                splitFullname[2].dropFirst() + " " +
+                String(splitFullname[3]).prefix(1).capitalized + "."
     }
 }
 
