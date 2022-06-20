@@ -1,5 +1,6 @@
 import UIKit
 
+
 protocol Format {
     func prettyFormat() -> String
 }
@@ -29,14 +30,19 @@ struct Person: Format {
     }
     
     func prettyFormat() -> String {
+        //Capitalize first letter and add new format
         let splitFullname = fullname.lowercased().split(separator: " ")
-        print(splitFullname)
-        return " "
+        let newFormat =
+            String(splitFullname[0]).prefix(1).capitalized +
+            splitFullname[0].dropFirst() + " " +
+            String(splitFullname[2]).prefix(1).capitalized +
+            splitFullname[2].dropFirst() + " " +
+            String(splitFullname[3]).prefix(1).capitalized + "."
+        return newFormat
     }
 }
 
 //Set persons
-
 let person1 = Person(
     fullname: "CARLOS JOSÉ ROBLES GOMES",
     gender: "M",
@@ -63,7 +69,7 @@ let person3 = Person(
     email: "Karla.alexandra@hotmail.com"
 )
 let person4 = Person(
-    fullname: "NICOLAS QUISPE ZEBALLOS",
+    fullname: "NICOLAS JOSE QUISPE ZEBALLOS",
     gender: "M",
     dateOfBirth: "08/10/1990",
     numberDNI: 71748552,
@@ -107,26 +113,33 @@ func findYoungest(persons: Array<Person>) -> Person {
     persons.forEach { person in
         datesOfBirth.append(dateOfBirthToInt(dateOfBirth: person.dateOfBirth))
     }
-    let indexOldest = datesOfBirth.indices.filter { datesOfBirth[$0] == datesOfBirth.max() }
-    return persons[indexOldest[0]]
+    let indexYoungest = datesOfBirth.indices.filter { datesOfBirth[$0] == datesOfBirth.max() }
+    return persons[indexYoungest[0]]
 }
 
+// get a list of men and women
+func getWomen(persons: Array<Person>) -> Array<Person> {
+    return persons.filter { $0.gender == "F" }
+}
+
+func getMen(persons: Array<Person>) -> Array<Person> {
+    return persons.filter { $0.gender == "M" }
+}
+//get a list of people with more than 2 siblings
+func getPersonsMoreThanTwoSiblings(persons: Array<Person>) -> Array<Person> {
+    return persons.filter { $0.numberBrothers > 2 }
+}
+
+// Auxiliar function
 // higher value is younger
 func dateOfBirthToInt(dateOfBirth: String) -> Int{
     let splitDateOfBirth = dateOfBirth.split(separator: "/")
     return Int(splitDateOfBirth[2] + splitDateOfBirth[1] + splitDateOfBirth[0])!
 }
 
-//obtener una lista de hombres y mujeres
-func getWoman(persons: Array<Person>) -> Array<Person> {
-    return persons.filter { $0.gender == "F" }
-}
-let woman = getWoman(persons: persons)
-
-func getMan(persons: Array<Person>) -> Array<Person> {
-    return persons.filter { $0.gender == "M" }
-}
-//obtener una lista de las personas con mas 2 hermanos
-func getPersonsMoreThanTwoSiblings(persons: Array<Person>) -> Array<Person> {
-    return persons.filter { $0.numberBrothers > 2 }
-}
+//Show result
+print(findOldest(persons: persons).prettyFormat())
+print(findYoungest(persons: persons).prettyFormat())
+print(getWomen(persons: persons))
+print(getMen(persons: persons))
+print(getPersonsMoreThanTwoSiblings(persons: persons))
